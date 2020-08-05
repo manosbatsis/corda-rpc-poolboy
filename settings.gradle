@@ -1,0 +1,3 @@
+rootProject.name = 'corda-rpc-poolboy-parent'
+include ':corda-rpc-poolboy'
+
