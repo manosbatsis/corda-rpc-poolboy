@@ -33,14 +33,16 @@ class PoolBoy(private val rpcConfigurationService: RpcConfigurationService) {
             nodeParamsService = rpcConfigurationService
     )
 
-    /** Get a key-specific Pool Boy */
-    fun forKey(key: PoolKey): PoolBoyPooledConnection = PoolBoyPooledConnection(this, key)
+    /** Get a pool-able connection wrapper for the given [key] */
+    fun forKey(key: PoolKey): PoolBoyConnection =
+            PoolBoyPooledConnection(this, key)
 
     /**
      * Only use if you know what you are doing. Explicitly borrow a
      * [NodeRpcConnection] from the pool.
      */
-    fun borrowConnection(key: PoolKey) = rpcConnectionPool.borrowObject(key)
+    fun borrowConnection(key: PoolKey): NodeRpcConnection =
+            rpcConnectionPool.borrowObject(key)
 
     /**
      * Only use if you know what you are doing. Explicitly return a

@@ -29,6 +29,9 @@ import org.slf4j.LoggerFactory
 
 /**
  * Provides RPC pool and connection information for nodes.
+ * Can be "fixed" or fully dynamic, e.g. based on
+ * a properties file or database connection respectively.
+ *
  */
 interface RpcConfigurationService {
 
