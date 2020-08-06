@@ -5,11 +5,11 @@ PoolBoy is an RPC connection pool with support for multiple Corda nodes.
 See complete documentation at https://manosbatsis.github.io/corda-rpc-poolboy
 
 Note this is an early release. It is highly unstable but provided in 
-hope it can be useful. Contributions of any kind are welcome.
+hope it can be useful. Contributions are welcome.
 
 ### Installation
 
-Add to your Cordapp's Gradle dependencies:
+Add PoolBoy to your Cordapp's Gradle dependencies:
 
 ```groovy
 dependencies{
@@ -27,7 +27,7 @@ dependencies{
 To use PoolBoy you will have to implement a `RpcConfigurationService`.
 The service provides RPC pool and connection configuration.
 Implementations can be "fixed" or fully dynamic, e.g. based on 
-a properties file or database connection respectively.
+a properties file or database connection etc. respectively.
 
 > A future release will provide a sample, properties-based implementation. 
 In the meantime you can find an example in Corbeans' default  
@@ -73,7 +73,7 @@ poolBoy.withConnection(poolKey){
 ```
 
 Using a `PoolBoyConnection`, i.e. a pooled connection 
-to a target node directly:
+handle to a target node directly:
 
 ```kotlin
 // Create the PoolBoy instance
@@ -82,7 +82,7 @@ val poolBoy = PoolBoy(myRpcConfigurationService)
 // Obtain a pool key for the target node
 val poolKey = myRpcConfigurationService.buildPoolKey(nodeName)
 
-// Get a poolable connection handle
+// Get a pool-able connection handle
 val pbCconn: PoolBoyConnection = poolBoy.forKey(poolKey)
 
 // Do something with the CordaRPCOps
@@ -94,6 +94,6 @@ pbCconn.withConnection {
 ```
 
 Both `PoolBoy` and `PoolBoyConnection` have `borrowConnection()` 
-and `returnConnection()` methods, but it's highly discouraged;  
-you'd better know what you're doing if you use them. 
-The `withConnection` approach is preferred.
+and `returnConnection()` methods, but it's highly discouraged; you'd 
+better know what you're doing if you use them. The `withConnection` 
+approach is preferred.
