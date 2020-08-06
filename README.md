@@ -55,7 +55,7 @@ i.e. the equivalent parameters passed to `CordaRPCClient.start()`
 
 ## Sample Usage
 
-Using a full `PolBoy`:
+Using a full `PoolBoy`:
 
 ```kotlin
 // Create the PoolBoy instance
@@ -93,7 +93,7 @@ pbCconn.withConnection {
 }
 ```
 
-Both `PolBoy` and `PoolBoyConnection` have `borrowConnection()`
-and `returnConnection()` methods, but it's highly discouraged -   
-you'd better know what you're doing if you use them.
+Both `PoolBoy` and `PoolBoyConnection` have `borrowConnection()` 
+and `returnConnection()` methods, but it's highly discouraged - 
+you'd better know what you're doing if you use them. 
 The `withConnection` approach is preferred.
