@@ -94,6 +94,6 @@ pbCconn.withConnection {
 ```
 
 Both `PoolBoy` and `PoolBoyConnection` have `borrowConnection()` 
-and `returnConnection()` methods, but it's highly discouraged - 
+and `returnConnection()` methods, but it's highly discouraged;  
 you'd better know what you're doing if you use them. 
 The `withConnection` approach is preferred.
