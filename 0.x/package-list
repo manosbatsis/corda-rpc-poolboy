@@ -1,0 +1,11 @@
+$dokka.format:gfm
+$dokka.linkExtension:md
+
+com.github.manosbatsis.corda.rpc.poolboy
+com.github.manosbatsis.corda.rpc.poolboy.annotation
+com.github.manosbatsis.corda.rpc.poolboy.config
+com.github.manosbatsis.corda.rpc.poolboy.connection
+com.github.manosbatsis.corda.rpc.poolboy.pool
+com.github.manosbatsis.corda.rpc.poolboy.pool.client
+com.github.manosbatsis.corda.rpc.poolboy.pool.connection
+com.github.manosbatsis.corda.rpc.poolboy.support

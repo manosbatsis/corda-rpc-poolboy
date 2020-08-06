@@ -1,0 +1,566 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="PoolBoy is an RPC connection pool with support for multiple Corda nodes.">
+      
+      
+      
+        <meta name="author" content="Manos Batsis">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Corda RPC PoolBoy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#00bcd4">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-131279953-1", "manosbatsis.github.io")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="deep-purple">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#nodeparams" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="Corda RPC PoolBoy" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Corda RPC PoolBoy
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Home
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/manosbatsis/corda-rpc-poolboy/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    corda-rpc-poolboy
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../.." title="Corda RPC PoolBoy" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Corda RPC PoolBoy
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/manosbatsis/corda-rpc-poolboy/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    corda-rpc-poolboy
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="/vaultaire/0.x/index.html" title="API Reference" class="md-nav__link">
+      API Reference
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../faq/" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../changelog/" title="Change Log" class="md-nav__link">
+      Change Log
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constructors" title="Constructors" class="md-nav__link">
+    Constructors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" title="Properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#companion-object-properties" title="Companion Object Properties" class="md-nav__link">
+    Companion Object Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#companion-object-functions" title="Companion Object Functions" class="md-nav__link">
+    Companion Object Functions
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/manosbatsis/corda-rpc-poolboy/edit/master/docs/0.x/com.github.manosbatsis.corda.rpc.poolboy.config/-node-params/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <p><a href="../">com.github.manosbatsis.corda.rpc.poolboy.config</a> / <a href="./">NodeParams</a></p>
+<h1 id="nodeparams">NodeParams<a class="headerlink" href="#nodeparams" title="Permanent link">&para;</a></h1>
+<p><code>data class NodeParams</code></p>
+<p>Configuration of a single node from an RPC perspective, i.e.
+information corresponding to RPC user credentials and an <a href="#">CordaRPCClientConfiguration</a>.
+The <code>DEFAULTS</code> are taken from <a href="#">CordaRPCClientConfiguration.DEFAULT</a> and can be overridden
+using <code>corbeans.nodes.default.xx</code> in your <code>application.properties</code></p>
+<h3 id="constructors">Constructors<a class="headerlink" href="#constructors" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="-init-/">&lt;init&gt;</a></td>
+<td><code>NodeParams(partyName: String? = null, username: String? = null, password: String? = null, address: String? = null, adminAddress: String? = null, eager: Boolean? = null, trustStorePath: String? = null, trustStorePassword: String? = null, trustStoreProvider: String = "JKS", disableGracefulReconnect: Boolean? = null, connectionMaxRetryInterval: Duration? = null, connectionRetryInterval: Duration? = null, connectionRetryIntervalMultiplier: Double? = null, deduplicationCacheExpiry: Duration? = null, maxFileSize: Int? = null, maxReconnectAttempts: Int? = null, minimumServerProtocolVersion: Int? = null, observationExecutorPoolSize: Int? = null, reapInterval: Duration? = null, trackRpcCallSites: Boolean? = null, skipInfo: Boolean? = null, customSerializers: Set&lt;SerializationCustomSerializer&lt;*, *&gt;&gt;? = null)</code><br>Configuration of a single node from an RPC perspective, i.e. information corresponding to RPC user credentials and an <a href="#">CordaRPCClientConfiguration</a>. The <code>DEFAULTS</code> are taken from <a href="#">CordaRPCClientConfiguration.DEFAULT</a> and can be overridden using <code>corbeans.nodes.default.xx</code> in your <code>application.properties</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="address/">address</a></td>
+<td><code>var address: String?</code><br>Node RPC address</td>
+</tr>
+<tr>
+<td><a href="admin-address/">adminAddress</a></td>
+<td><code>var adminAddress: String?</code><br>Node administration RPC address</td>
+</tr>
+<tr>
+<td><a href="connection-max-retry-interval/">connectionMaxRetryInterval</a></td>
+<td><code>var connectionMaxRetryInterval: Duration?</code><br>The maximum retry interval for re-connections. The client will retry connections if the host is lost with ever increasing spacing until the max is reached. The default is 3 minutes.</td>
+</tr>
+<tr>
+<td><a href="connection-retry-interval/">connectionRetryInterval</a></td>
+<td><code>var connectionRetryInterval: Duration?</code><ul><li>The base retry interval for reconnection attempts. The default is 5 seconds.</li></ul></td>
+</tr>
+<tr>
+<td><a href="connection-retry-interval-multiplier/">connectionRetryIntervalMultiplier</a></td>
+<td><code>var connectionRetryIntervalMultiplier: Double?</code><br>The retry interval multiplier for exponential backoff. The default is 1.5</td>
+</tr>
+<tr>
+<td><a href="custom-serializers/">customSerializers</a></td>
+<td><code>var customSerializers: Set&lt;SerializationCustomSerializer&lt;*, *&gt;&gt;?</code></td>
+</tr>
+<tr>
+<td><a href="deduplication-cache-expiry/">deduplicationCacheExpiry</a></td>
+<td><code>var deduplicationCacheExpiry: Duration?</code><br>The cache expiry of a deduplication watermark per client. Default is 1 day.</td>
+</tr>
+<tr>
+<td><a href="disable-graceful-reconnect/">disableGracefulReconnect</a></td>
+<td><code>var disableGracefulReconnect: Boolean?</code><br>Whether to use GracefulReconnect (4.3+)</td>
+</tr>
+<tr>
+<td><a href="eager/">eager</a></td>
+<td><code>var eager: Boolean?</code><br>Whether to use an eagerly initialised <a href="#">NodeRpcConnection</a> implementation. Default is <code>false</code>. Setting to <code>true</code> will probably break integration tests so you will need separate application.properties for those.</td>
+</tr>
+<tr>
+<td><a href="max-file-size/">maxFileSize</a></td>
+<td><code>var maxFileSize: Int?</code><br>Maximum size of RPC responses, in bytes. Default is 10mb.</td>
+</tr>
+<tr>
+<td><a href="max-reconnect-attempts/">maxReconnectAttempts</a></td>
+<td><code>var maxReconnectAttempts: Int?</code><br>Maximum reconnect attempts on failover or disconnection. The default is -1 which means unlimited.</td>
+</tr>
+<tr>
+<td><a href="minimum-server-protocol-version/">minimumServerProtocolVersion</a></td>
+<td><code>var minimumServerProtocolVersion: Int?</code><br>The minimum protocol version required from the server. This is equivalent to the node&rsquo;s platform version number. If this minimum version is not met, an exception will be thrown at startup. If you use features introduced in a later version, you can bump this to match the platform version you need and get an early check that runs before you do anything.</td>
+</tr>
+<tr>
+<td><a href="observation-executor-pool-size/">observationExecutorPoolSize</a></td>
+<td><code>var observationExecutorPoolSize: Int?</code><br>The number of threads to use for observations for executing Observable.onNext. This only has any effect if observableExecutor is null (which is the default). The default is 4.</td>
+</tr>
+<tr>
+<td><a href="party-name/">partyName</a></td>
+<td><code>var partyName: String?</code><br>The x500 name to use for the node when testing</td>
+</tr>
+<tr>
+<td><a href="password/">password</a></td>
+<td><code>var password: String?</code><br>RPC user password</td>
+</tr>
+<tr>
+<td><a href="reap-interval/">reapInterval</a></td>
+<td><code>var reapInterval: Duration?</code><br>The interval of unused observable reaping. Leaked Observables (unused ones) are detected using weak references and are cleaned up in batches in this interval. If set too large it will waste server side resources for this duration. If set too low it wastes client side cycles. The default is to check once per second.</td>
+</tr>
+<tr>
+<td><a href="skip-info/">skipInfo</a></td>
+<td><code>var skipInfo: Boolean?</code><br>Whether to skip this node from actuator</td>
+</tr>
+<tr>
+<td><a href="track-rpc-call-sites/">trackRpcCallSites</a></td>
+<td><code>var trackRpcCallSites: Boolean?</code><br>If set to true the client will track RPC call sites (default is false). If an error occurs subsequently during the RPC or in a returned Observable stream the stack trace of the originating RPC will be shown as well. Note that constructing call stacks is a moderately expensive operation.</td>
+</tr>
+<tr>
+<td><a href="trust-store-password/">trustStorePassword</a></td>
+<td><code>var trustStorePassword: String?</code><br>Corresponds to <a href="#">ClientRpcSslOptions.trustStorePassword</a></td>
+</tr>
+<tr>
+<td><a href="trust-store-path/">trustStorePath</a></td>
+<td><code>var trustStorePath: String?</code><br>Corresponds to <a href="#">ClientRpcSslOptions.trustStorePath</a></td>
+</tr>
+<tr>
+<td><a href="trust-store-provider/">trustStoreProvider</a></td>
+<td><code>var trustStoreProvider: String</code><br>Corresponds to <a href="#">ClientRpcSslOptions.trustStoreProvider</a></td>
+</tr>
+<tr>
+<td><a href="username/">username</a></td>
+<td><code>var username: String?</code><br>RPC user</td>
+</tr>
+</tbody>
+</table>
+<h3 id="companion-object-properties">Companion Object Properties<a class="headerlink" href="#companion-object-properties" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="-d-e-f-a-u-l-t/">DEFAULT</a></td>
+<td><code>val DEFAULT:</code><a href="./"><code>NodeParams</code></a></td>
+</tr>
+<tr>
+<td><a href="-n-o-d-e-n-a-m-e_-c-o-r-d-f-o-r-m/">NODENAME_CORDFORM</a></td>
+<td><code>val NODENAME_CORDFORM: String</code></td>
+</tr>
+<tr>
+<td><a href="-n-o-d-e-n-a-m-e_-d-e-f-a-u-l-t/">NODENAME_DEFAULT</a></td>
+<td><code>val NODENAME_DEFAULT: String</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="companion-object-functions">Companion Object Functions<a class="headerlink" href="#companion-object-functions" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="merge-params/">mergeParams</a></td>
+<td><code>fun mergeParams(partialParams:</code><a href="./"><code>NodeParams</code></a><code>, defaults:</code><a href="./"><code>NodeParams</code></a><code>?):</code><a href="./"><code>NodeParams</code></a><br>Merge in order of precedence, with NodeParams.DEFAULT being the implicit last option</td>
+</tr>
+</tbody>
+</table>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Manos Batsis
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+    
+  </body>
+</html>
