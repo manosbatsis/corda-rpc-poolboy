@@ -42,14 +42,14 @@ The main configuration items provided by such a service are as follows:
     - `rpcOpsPool`: The [commons-pool2 keyed configuration](https://commons.apache.org/proper/commons-pool/apidocs/org/apache/commons/pool2/impl/GenericKeyedObjectPoolConfig.html)
      to use for `NodeRpcConnection` instances - those start and wrap a `CordaRPCOps` 
 2. `getRpcNodeParams(String)`: Provides the RPC connection configuration (i.e. `NodeParams`) 
-corresponding to the given [nodeName] key per your configuration implementation, 
-e.g. X500 name, application.properties key, database primary key etc. Note that the implementor 
-is solely responsible for any caching.
+corresponding to the given node key per your configuration implementation, 
+e.g. X500 name, application.properties key, database primary key etc. 
+Note that the implementor is solely responsible for any caching.
 3. `getGracefulReconnect(NodeParams)`: Override to change the `GracefulReconnect` implementation to use 
 when `NodeParams.disableGracefulReconnect` is `false`.
 4. `getCustomSerializers(List<String>)`: Custom serializer types found in the configured cordapp packages.
 Override to bypass classpath scanning and improve search discovery performance.
-5. `buildPoolKey(String)`: Builds a [PoolKey] for the given node name. 
+5. `buildPoolKey(String)`: Builds a `PoolKey` for the given node name. 
 Override to customise `PoolKey.externalTrace` and `PoolKey.impersonatedActor`, 
 i.e. the equivalent parameters passed to `CordaRPCClient.start()`
 
