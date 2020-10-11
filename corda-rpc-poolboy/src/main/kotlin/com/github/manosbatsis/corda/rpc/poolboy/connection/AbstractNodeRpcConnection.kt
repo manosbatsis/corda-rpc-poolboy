@@ -65,8 +65,8 @@ abstract class AbstractNodeRpcConnection(
             attemptCount++
             try {
                 rpcConnection = rpcClient.start(
-                        username = config.username,
-                        password = config.password,
+                        username = config.nodeParams.username!!,
+                        password = config.nodeParams.password!!,
                         targetLegalIdentity = config.targetLegalIdentity,
                         externalTrace = config.externalTrace,
                         impersonatedActor = config.impersonatedActor,
@@ -98,7 +98,7 @@ abstract class AbstractNodeRpcConnection(
             if (::rpcConnection.isInitialized) rpcConnection.notifyServerAndClose()
         }
         catch (e: Throwable){
-            logger.warn("Error notifying server ${config.address}", e)
+            logger.warn("Error notifying server ${config.nodeParams.address}", e)
         }
     }
 

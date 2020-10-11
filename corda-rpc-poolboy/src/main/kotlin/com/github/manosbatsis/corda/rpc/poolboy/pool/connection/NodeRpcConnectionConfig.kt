@@ -31,36 +31,32 @@ import net.corda.core.identity.CordaX500Name
 @NoArgs
 @AllOpen
 data class NodeRpcConnectionConfig(
-        val address: String,
-        val username: String,
-        val password: String,
-        val eager: Boolean,
+        val nodeParams: NodeParams,
+        val targetLegalIdentity: CordaX500Name,
         val externalTrace: Trace? = null,
         val impersonatedActor: Actor? = null,
-        val targetLegalIdentity: CordaX500Name,
         val gracefulReconnect: GracefulReconnect? = null
 
 ) {
     constructor(
-            customNodeParams: NodeParams,
-            targetLegalIdentity: CordaX500Name,
+            address: String,
+            username: String,
+            password: String,
+            eager: Boolean,
             externalTrace: Trace? = null,
             impersonatedActor: Actor? = null,
+            targetLegalIdentity: CordaX500Name,
             gracefulReconnect: GracefulReconnect? = null
     ) : this(
-            address = customNodeParams.address ?: error("An RPC address is required"),
-            username = customNodeParams.username ?: error("A username is required"),
-            password = customNodeParams.password ?: error("A password is required"),
-            eager = customNodeParams.eager ?: false,
+            nodeParams = NodeParams.mergeParams(NodeParams(
+                    address = address,
+                    username = username,
+                    password = password,
+                    eager = eager)),
             externalTrace = externalTrace,
             impersonatedActor = impersonatedActor,
             targetLegalIdentity = targetLegalIdentity,
             gracefulReconnect = gracefulReconnect
-    ) {
-        this.nodeParams = customNodeParams
-    }
-
-    // Ignore as pool object key etc.
-    var nodeParams: NodeParams = NodeParams.DEFAULT
+    )
 }
 

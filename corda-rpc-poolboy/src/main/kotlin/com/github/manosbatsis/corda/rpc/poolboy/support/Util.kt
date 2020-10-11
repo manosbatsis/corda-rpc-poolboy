@@ -57,6 +57,7 @@ interface Util {
 
         /** Build a [NetworkHostAndPort] from the configuration host and port */
         fun buildRpcAddress(config: NodeParams): NetworkHostAndPort {
+            logger.warn("buildRpcAddress, config: $config")
             val addressParts = config.address!!.split(":")
             val rpcAddress = NetworkHostAndPort(addressParts[0], addressParts[1].toInt())
             return rpcAddress

@@ -130,15 +130,25 @@ data class NodeParams(
                 skipInfo = false
         )
 
-        /** Merge in order of precedence, with NodeParams.DEFAULT being the implicit last option */
+
+        /**
+         * Merge in order of precedence,
+         * with DEFAULT being the implicit additional default options
+         */
         @JvmStatic
-        fun mergeParams(partialParams: NodeParams, defaults: NodeParams?): NodeParams {
-            // Verify required properties exist
-            requireNotNull(partialParams.partyName) { "Node configuration is missing a partyName property" }
-            requireNotNull(partialParams.username) { "Node configuration is missing a username property" }
-            requireNotNull(partialParams.password) { "Node configuration is missing a password property" }
-            requireNotNull(partialParams.address) { "Node configuration is missing an address property" }
-            requireNotNull(partialParams.adminAddress) { "Node configuration is missing an adminAddress property" }
+        fun mergeParams(
+                partialParams: NodeParams,
+                defaults: NodeParams? = null,
+                skipValidation: Boolean = false
+        ): NodeParams {
+            // Verify required properties exist?
+            if (!skipValidation) {
+                requireNotNull(partialParams.partyName) { "Node configuration is missing a partyName property" }
+                requireNotNull(partialParams.username) { "Node configuration is missing a username property" }
+                requireNotNull(partialParams.password) { "Node configuration is missing a password property" }
+                requireNotNull(partialParams.address) { "Node configuration is missing an address property" }
+                requireNotNull(partialParams.adminAddress) { "Node configuration is missing an adminAddress property" }
+            }
             // Use defaults as necessary
             return with(partialParams) {
                 copy(
@@ -183,34 +193,6 @@ data class NodeParams(
             }
 
         }
+
     }
-/*
-    constructor(
-            baseNodeParams: NodeParams
-    ): this(
-            partyName = baseNodeParams.partyName,
-            username = baseNodeParams.username,
-            password = baseNodeParams.password,
-            address = baseNodeParams.address,
-            adminAddress = baseNodeParams.adminAddress,
-            eager = baseNodeParams.eager,
-            trustStorePath = baseNodeParams.trustStorePath,
-            trustStorePassword = baseNodeParams.trustStorePassword,
-            trustStoreProvider = baseNodeParams.trustStoreProvider,
-            disableGracefulReconnect = baseNodeParams.disableGracefulReconnect,
-            connectionMaxRetryInterval = baseNodeParams.connectionMaxRetryInterval,
-            connectionRetryInterval = baseNodeParams.connectionRetryInterval,
-            connectionRetryIntervalMultiplier = baseNodeParams.connectionRetryIntervalMultiplier,
-            deduplicationCacheExpiry = baseNodeParams.deduplicationCacheExpiry,
-            maxFileSize = baseNodeParams.maxFileSize,
-            maxReconnectAttempts = baseNodeParams.maxReconnectAttempts,
-            minimumServerProtocolVersion = baseNodeParams.minimumServerProtocolVersion,
-            observationExecutorPoolSize = baseNodeParams.observationExecutorPoolSize,
-            reapInterval = baseNodeParams.reapInterval,
-            trackRpcCallSites = baseNodeParams.trackRpcCallSites,
-            skipInfo = baseNodeParams.skipInfo,
-            customSerializers = baseNodeParams.customSerializers
-    )*/
-
-
 }

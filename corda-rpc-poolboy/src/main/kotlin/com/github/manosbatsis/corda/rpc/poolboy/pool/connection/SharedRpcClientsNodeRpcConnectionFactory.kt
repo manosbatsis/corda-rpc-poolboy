@@ -64,7 +64,7 @@ class DedicatedRpcClientsNodeRpcConnectionFactory(
         val config = nodeParamsService.getNodeRpcConnectionConfig(key)
         val rpcClient =
             Util.createCordaRPCClient(config.nodeParams)
-        return if (config.eager) EagerNodeRpcConnection(config)
+        return if (config.nodeParams?.eager == true) EagerNodeRpcConnection(config)
         else LazyNodeRpcConnection(config)
     }
 }
@@ -95,13 +95,14 @@ class SharedRpcClientsNodeRpcConnectionFactory(
         val clientKey = ClientKey(
                 address = config.nodeParams.address
                         ?: error("An address is required"),
-                username = config.username)
+                username = config.nodeParams.username
+                        ?: error("A username is required"))
         // Get and/or create a CordaRPCClient
         // shared by address and RPC user name
         val rpcClient = clients.getOrPut(clientKey){
             Util.createCordaRPCClient(config.nodeParams)
         }
-        return if (config.eager) EagerNodeRpcConnection(config)
+        return if (config.nodeParams.eager == true) EagerNodeRpcConnection(config)
         else LazyNodeRpcConnection(config)
     }
 }
@@ -125,7 +126,7 @@ class RpcClientPoolBackedNodeRpcConnectionFactory(
         try {
             val config = nodeParamsService.getNodeRpcConnectionConfig(key)
             // Create our RPC proxy wrapper
-            rpcConn = if (config.eager) EagerNodeRpcConnection(config)
+            rpcConn = if (config.nodeParams.eager == true) EagerNodeRpcConnection(config)
             else LazyNodeRpcConnection(config)
         }catch (e: Exception){
             throw e

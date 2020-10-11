@@ -104,7 +104,7 @@ interface RpcConfigurationService {
         val gracefulReconnect = if(nodeParams.disableGracefulReconnect == true) null
             else getGracefulReconnect(nodeParams)
         return NodeRpcConnectionConfig(
-                customNodeParams = nodeParams,
+                nodeParams = nodeParams,
                 externalTrace = key.externalTrace,
                 impersonatedActor = key.impersonatedActor,
                 targetLegalIdentity = partyName,
