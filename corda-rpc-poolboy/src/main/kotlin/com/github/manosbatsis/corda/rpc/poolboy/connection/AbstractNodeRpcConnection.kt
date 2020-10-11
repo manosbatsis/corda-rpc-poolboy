@@ -65,8 +65,8 @@ abstract class AbstractNodeRpcConnection(
             attemptCount++
             try {
                 rpcConnection = rpcClient.start(
-                        username = config.nodeParams.username!!,
-                        password = config.nodeParams.password!!,
+                        username = config.nodeParams.username ?: error("A username is required"),
+                        password = config.nodeParams.password ?: error("A password is required"),
                         targetLegalIdentity = config.targetLegalIdentity,
                         externalTrace = config.externalTrace,
                         impersonatedActor = config.impersonatedActor,
