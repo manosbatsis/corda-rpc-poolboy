@@ -325,8 +325,9 @@
                 
                 <p><a href="../../">com.github.manosbatsis.corda.rpc.poolboy.config</a> / <a href="../">NodeParams</a> / <a href="./">mergeParams</a></p>
 <h1 id="mergeparams">mergeParams<a class="headerlink" href="#mergeparams" title="Permanent link">&para;</a></h1>
-<p><code>@JvmStatic fun mergeParams(partialParams:</code><a href="../"><code>NodeParams</code></a><code>, defaults:</code><a href="../"><code>NodeParams</code></a><code>?):</code><a href="../"><code>NodeParams</code></a></p>
-<p>Merge in order of precedence, with NodeParams.DEFAULT being the implicit last option</p>
+<p><code>@JvmStatic fun mergeParams(partialParams:</code><a href="../"><code>NodeParams</code></a><code>, defaults:</code><a href="../"><code>NodeParams</code></a><code>? = null, skipValidation: Boolean = false):</code><a href="../"><code>NodeParams</code></a></p>
+<p>Merge in order of precedence,
+with DEFAULT being the implicit additional default options</p>
                 
                   
                 
