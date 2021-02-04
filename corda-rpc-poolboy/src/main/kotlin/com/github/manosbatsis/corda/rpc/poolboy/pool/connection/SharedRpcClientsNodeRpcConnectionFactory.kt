@@ -130,8 +130,7 @@ class RpcClientPoolBackedNodeRpcConnectionFactory(
             else LazyNodeRpcConnection(config)
         }catch (e: Exception){
             throw e
-        }
-        finally {
+        } finally {
             // Return the client to the pool
             rpcClientPool.returnObject(key, rpcClient)
         }

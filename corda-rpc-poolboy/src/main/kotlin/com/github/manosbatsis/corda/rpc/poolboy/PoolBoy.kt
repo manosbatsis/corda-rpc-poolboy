@@ -23,10 +23,14 @@ import com.github.manosbatsis.corda.rpc.poolboy.config.RpcConfigurationService
 import com.github.manosbatsis.corda.rpc.poolboy.connection.NodeRpcConnection
 import com.github.manosbatsis.corda.rpc.poolboy.pool.connection.NodeRpcConnectionPool
 import net.corda.core.messaging.CordaRPCOps
+import net.corda.core.utilities.contextLogger
 
 /** Provides RPC connection pooling */
 class PoolBoy(private val rpcConfigurationService: RpcConfigurationService) {
 
+    companion object {
+        private val logger = contextLogger()
+    }
 
     /** Maintain an RPC client/ops pool */
     private val rpcConnectionPool = NodeRpcConnectionPool(
@@ -58,6 +62,8 @@ class PoolBoy(private val rpcConfigurationService: RpcConfigurationService) {
         val connection = borrowConnection(key)
         return try {
             block(connection)
+        }catch (e: Exception){
+            throw e
         } finally {
             returnConnection(key, connection)
         }
@@ -89,8 +95,7 @@ interface PoolBoyConnection {
             block(connection)
         }catch (e: Exception){
             throw e
-        }
-        finally {
+        } finally {
             returnConnection(connection)
         }
     }

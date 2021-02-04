@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory
  */
 open class LazyNodeRpcConnection(
         config: NodeRpcConnectionConfig
-): com.github.manosbatsis.corda.rpc.poolboy.connection.AbstractNodeRpcConnection(config) {
+): AbstractNodeRpcConnection(config) {
 
     companion object {
         private val logger = LoggerFactory.getLogger(LazyNodeRpcConnection::class.java)
